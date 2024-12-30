@@ -4,3 +4,9 @@
   path = ~/git/.dotfiles/gitconfig/.gitconfig-perso
 [includeIf "gitdir:~/git-poly/"]
   path = ~/git/.dotfiles/gitconfig/.gitconfig-poly
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
