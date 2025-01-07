@@ -49,9 +49,11 @@ gh auth status
 I want to access the github .dotfiles repo with ssh
 
 ```bash
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f "~/.ssh/id_rsa_github_perso"
+sudo pacman -S openssh
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ~/.ssh/id_rsa_github_perso
+eval $(ssh-agent)
 ssh-add ~/.ssh/id_rsa_github_perso
-gh ssh-key add ~/.ssh/id_rsa_personal_github.pub --title "MACHINE_DESCRIPTION"
+gh ssh-key add ~/.ssh/id_rsa_github_perso.pub --title "MACHINE_DESCRIPTION"
 # TEST with
 ssh -T git@github.com
 ```
@@ -92,7 +94,9 @@ gh auth login
 gh auth status
 
 # Generate SSH key and add to GitHub
+sudo pacman -S openssh
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f "~/.ssh/id_rsa_github_perso"
+eval $(ssh-agent)
 ssh-add ~/.ssh/id_rsa_github_perso
 gh ssh-key add ~/.ssh/id_rsa_personal_github.pub --title "MACHINE_DESCRIPTION"
 ssh -T git@github.com
@@ -124,16 +128,6 @@ sudo systemctl --user start pipewire
 sudo systemctl --user status pipewire
 ```
 
-## Gtk, Icons, cursor and font
-
-```bash
-yay -S gruvbox-gtk-theme-git gruvbox-material-icon-theme-git ttf-jetbrains-mono-git
-gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Dark'
-gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Material-Dark'
-gsettings set org.gnome.desktop.interface font-name 'JetBrains Mono Nerd Font 11'
-# Utilities to manipulate gtk theme
-yay -S dconf-editor ngw-look
-```
 
 ### Sumary of yay, audioServer, themes
 
@@ -283,6 +277,7 @@ but a unique yay command is also possible
 yay -S hyprland-git hyprpaper-git hyprlock-git hypridle-git \\
 hyprshot waybar-git wofi hyprpolkitagent-git swaync uwsm
 
+cd ~/git/.dotfiles
 ln -sf "$(pwd)/hypr" "${XDG_CONFIG_HOME:-$HOME/.config}/hypr"
 ln -sf "$(pwd)/waybar" "${XDG_CONFIG_HOME:-$HOME/.config}/waybar"
 ln -sf "$(pwd)/wofi" "${XDG_CONFIG_HOME:-$HOME/.config}/wofi"
@@ -301,6 +296,17 @@ touch ~/.bash_profile
 echo 'if [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]] && uwsm check may-start; then
     exec uwsm start hyprland.desktop
 fi' >> ~/.bash_profile
+```
+
+## Gtk, Icons, cursor and font
+
+```bash
+yay -S gruvbox-gtk-theme-git gruvbox-material-icon-theme-git ttf-jetbrains-mono-git
+gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Material-Dark'
+gsettings set org.gnome.desktop.interface font-name 'JetBrains Mono Nerd Font 11'
+# Utilities to manipulate gtk theme
+yay -S dconf-editor ngw-look
 ```
 
 ## Terminal Emulator
@@ -405,6 +411,7 @@ sudo systemctl status NetworkManager
 ### Install Neovim from Git
 
 ```bash
+pacman -S cmake
 git clone https://github.com/neovim/neovim ~/git-Downloads/neovim
 cd ~/git-Downloads
 make CMAKE_BUILD_TYPE=Release
