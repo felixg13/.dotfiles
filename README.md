@@ -69,8 +69,8 @@ gh repo list
 Clone the dotfiles repo in the git directory using gh or git.
 
 ```bash
-gh repo clone .dotfiles ~/git/
-git clone git@github.com:felixg13/.dotfiles.git ~/git/
+gh repo clone .dotfiles ~/git/.dotfiles
+git clone git@github.com:felixg13/.dotfiles.git ~/git/.dotfiles
 ```
 
 ### Dependencies and Environement Summary
@@ -119,14 +119,6 @@ makepkg -si
 
 [yay README](https://github.com/Jguer/yay)
 
-## pipewire
-
-```bash
-yay -S pipewire pipewire-docs wireplumber
-sudo systemctl --user enable pipewire
-sudo systemctl --user start pipewire
-sudo systemctl --user status pipewire
-```
 
 
 ### Sumary of yay, audioServer, themes
@@ -265,6 +257,12 @@ ln -sf "$(pwd)/wlogout" "${XDG_CONFIG_HOME:-$HOME/.config}/wlogout"
 yay -S hyprpolkitagent-git
 ```
 
+### colors.css
+
+```bash
+ln -sf "$(pwd)/colors.css" "${XDG_CONFIG_HOME:-$HOME/.config}/colors.css"
+```
+
 ### summary
 
 Seperating each aspect of the hyprland configuration,
@@ -307,6 +305,15 @@ gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Material-Dark'
 gsettings set org.gnome.desktop.interface font-name 'JetBrains Mono Nerd Font 11'
 # Utilities to manipulate gtk theme
 yay -S dconf-editor ngw-look
+```
+
+## pipewire
+
+```bash
+yay -S pipewire pipewire-docs wireplumber
+sudo systemctl --user enable pipewire
+sudo systemctl --user start pipewire
+sudo systemctl --user status pipewire
 ```
 
 ## Terminal Emulator
@@ -413,7 +420,7 @@ sudo systemctl status NetworkManager
 ```bash
 pacman -S cmake
 git clone https://github.com/neovim/neovim ~/git-Downloads/neovim
-cd ~/git-Downloads
+cd ~/git-Downloads/neovim
 make CMAKE_BUILD_TYPE=Release
 sudo make install
 ```

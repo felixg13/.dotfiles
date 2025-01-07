@@ -12,7 +12,7 @@ cat /sys/firmware/efi/fw_platform_size
 iwctl device list
 iwctl device DEVICE set-property Powered on
 iwctl station DEVICE scan
-iwctl --passphrase PASSPHRASE station DEVICE connect SSID
+iwctl -p PASSWORD station DEVICE connect SSID
 # verify
 ping google.com
 
@@ -101,7 +101,7 @@ mount --mkdir /dev/sdX4 /mnt/home
 
 ```bash
 pacstrap -K /mnt base linux linux-firmware intel-ucode xf86-video-amdgpu\\
-networkmanager vim nano man-db man-pages texinfo wayland openssh
+networkmanager vim nano man-db man-pages texinfo wayland openssh cmake sudo
 ```
 
 ## Configuration
